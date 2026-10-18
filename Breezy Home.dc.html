@@ -16,38 +16,60 @@
 html, body { margin: 0; height: 100%; background: #8FD3F4; overflow: hidden; }
 .fld {
   /* left solid on purpose — a glass field over a glass panel
-     turns typing into guesswork */ flex:1; height:6.4vh; box-sizing:border-box; padding:0 2vh; border:.4vh solid #fff;
-  border-radius:1.8vh; background:#fff; color:#2F3B52;
-  box-shadow: inset 0 .35vh 0 rgba(20,73,107,.14), 0 .5vh 1vh rgba(20,73,107,.18);
-  font-family: Nunito, sans-serif; font-weight:800; font-size:2vh; outline:none; }
+     turns typing into guesswork */ flex:1; height:6.4vmin; box-sizing:border-box; padding:0 2vmin; border:.4vmin solid #fff;
+  border-radius:1.8vmin; background:#fff; color:#2F3B52;
+  box-shadow: inset 0 .35vmin 0 rgba(20,73,107,.14), 0 .5vmin 1vmin rgba(20,73,107,.18);
+  font-family: Nunito, sans-serif; font-weight:800; font-size:2vmin; outline:none; }
 .fld::placeholder { color:#A6B3C2; font-weight:700; }
-.fld:focus { box-shadow: inset 0 .35vh 0 rgba(20,73,107,.14), 0 0 0 .45vh #B491F5; }
+.fld:focus { box-shadow: inset 0 .35vmin 0 rgba(20,73,107,.14), 0 0 0 .45vmin #B491F5; }
 button, a { transition: transform .16s cubic-bezier(.22,.7,.3,1), box-shadow .16s ease, filter .16s ease; }
+/* The logo is independent of the cover-sized scenery, so it cannot be cropped. */
+.home-logo {
+  position: absolute;
+  top: 4%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(38vw, 70vh);
+  width: min(38vw, 70dvh);
+  height: auto;
+  object-fit: contain;
+  pointer-events: none;
+}
+.home-play { min-width: 156px; min-height: 52px; font-size: clamp(24px, 5vmin, 54px) !important; }
+.home-help { min-height: 44px; font-size: max(12px, 2vmin) !important; }
+.home-tool { min-width: 44px; min-height: 44px; }
+.home-tool svg { min-width: 20px; min-height: 20px; }
+@media (max-aspect-ratio: 1/1) {
+  .home-logo { top: max(104px, 16%); width: 88vw; }
+  .home-profile > button { min-height: 48px; }
+}
 </style>
 </helmet>
 
-<div data-screen-label="Home" style="position:relative;width:100%;height:100vh;overflow:hidden;font-family:'Baloo 2',Nunito,system-ui,sans-serif;color:#2F3B52;background:#8FD3F4">
-  <div style="position:absolute;inset:0;background-size:cover;background-position:center bottom;background-repeat:no-repeat;background-image:url(assets/breezyhome.png)"></div>
+<div class="home-screen" data-screen-label="Home" style="position:relative;width:100%;height:100vh;height:100dvh;overflow:hidden;font-family:'Baloo 2',Nunito,system-ui,sans-serif;color:#2F3B52;background:#8FD3F4">
+  <div style="position:absolute;inset:0;background-size:cover;background-position:center bottom;background-repeat:no-repeat;background-image:url(assets/breezyhome-background.png)"></div>
 
-  <!-- Everything below is built from the game's own kit: a .4vh white
+  <img class="home-logo" src="assets/breezy-logo-white.png" alt="Breezy!" width="2172" height="724" />
+
+  <!-- Everything below is built from the game's own kit: a .4vmin white
        border, a hard inset lip along the bottom, and one of its gradients.
        The old plates were flat translucent cards, which read as a web page
        sitting on top of the art rather than as part of the same toy. -->
 
   <!-- who is playing -->
-  <div style="position:absolute;left:2.6%;top:4%;display:flex;align-items:center;gap:1.4vh">
-    <button onClick="{{ openProfile }}" style="display:flex;align-items:center;gap:1.4vh;padding:1.1vh 2vh 1.1vh 1.1vh;border:.4vh solid #fff;border-radius:2vh;background:#fff;box-shadow:inset 0 -.5vh 0 rgba(20,73,107,.10),0 .6vh 1.2vh rgba(20,73,107,.28);cursor:pointer;text-align:left;transition:transform .16s cubic-bezier(.22,.7,.3,1),filter .16s ease" style-hover="transform:translateY(-.3vh)" style-active="transform:translateY(2px)">
-      <div style="width:5.8vh;height:5.8vh;border-radius:1.5vh;background:{{ avatarBg }};background-size:cover;background-position:center;box-shadow:inset 0 -.45vh 0 rgba(0,0,0,.16);display:flex;align-items:center;justify-content:center;color:#fff;overflow:hidden">
+  <div class="home-profile" style="position:absolute;left:2.6%;top:4%;display:flex;align-items:center;gap:1.4vmin">
+    <button onClick="{{ openProfile }}" style="display:flex;align-items:center;gap:1.4vmin;padding:1.1vmin 2vmin 1.1vmin 1.1vmin;border:.4vmin solid #fff;border-radius:2vmin;background:#fff;box-shadow:inset 0 -.5vmin 0 rgba(20,73,107,.10),0 .6vmin 1.2vmin rgba(20,73,107,.28);cursor:pointer;text-align:left;transition:transform .16s cubic-bezier(.22,.7,.3,1),filter .16s ease" style-hover="transform:translateY(-.3vmin)" style-active="transform:translateY(2px)">
+      <div style="width:5.8vmin;height:5.8vmin;border-radius:1.5vmin;background:{{ avatarBg }};background-size:cover;background-position:center;box-shadow:inset 0 -.45vmin 0 rgba(0,0,0,.16);display:flex;align-items:center;justify-content:center;color:#fff;overflow:hidden">
         <sc-if value="{{ noAvatar }}" hint-placeholder-val="{{ true }}">
-          <svg width="3.2vh" height="3.2vh" viewBox="0 0 24 24"><circle cx="12" cy="8.4" r="3.8" fill="currentColor"></circle><path d="M4.6 20c0-3.9 3.4-5.8 7.4-5.8s7.4 1.9 7.4 5.8" fill="currentColor"></path></svg>
+          <svg width="3.2vmin" height="3.2vmin" viewBox="0 0 24 24"><circle cx="12" cy="8.4" r="3.8" fill="currentColor"></circle><path d="M4.6 20c0-3.9 3.4-5.8 7.4-5.8s7.4 1.9 7.4 5.8" fill="currentColor"></path></svg>
         </sc-if>
       </div>
-      <div style="display:flex;flex-direction:column;gap:.7vh">
-        <div style="display:flex;align-items:center;gap:.9vh">
-          <div style="font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:2vh;line-height:1;color:#2F3B52">{{ who }}</div>
-          <div style="display:flex;align-items:center;height:2.1vh;padding:0 .8vh;border-radius:99px;background:linear-gradient(180deg,#A5EA76 0%,#3FA80F 100%);border:.22vh solid #fff;font-family:Nunito;font-weight:900;font-size:1.1vh;letter-spacing:.06em;color:#fff;text-shadow:0 .15vh 0 rgba(0,0,0,.28)">LVL {{ level }}</div>
+      <div style="display:flex;flex-direction:column;gap:.7vmin">
+        <div style="display:flex;align-items:center;gap:.9vmin">
+          <div style="font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:2vmin;line-height:1;color:#2F3B52">{{ who }}</div>
+          <div style="display:flex;align-items:center;height:2.1vmin;padding:0 .8vmin;border-radius:99px;background:linear-gradient(180deg,#A5EA76 0%,#3FA80F 100%);border:.22vmin solid #fff;font-family:Nunito;font-weight:900;font-size:1.1vmin;letter-spacing:.06em;color:#fff;text-shadow:0 .15vmin 0 rgba(0,0,0,.28)">LVL {{ level }}</div>
         </div>
-        <div style="position:relative;width:15vh;height:1.6vh;border-radius:99px;background:#DCE4EC;border:.22vh solid #fff;box-shadow:inset 0 .2vh .3vh rgba(20,73,107,.18);overflow:hidden">
+        <div style="position:relative;width:15vmin;height:1.6vmin;border-radius:99px;background:#DCE4EC;border:.22vmin solid #fff;box-shadow:inset 0 .2vmin .3vmin rgba(20,73,107,.18);overflow:hidden">
           <div style="position:absolute;left:0;top:0;bottom:0;width:{{ xpPct }};background:linear-gradient(180deg,#A5EA76 0%,#3FA80F 100%);border-radius:99px"></div>
         </div>
       </div>
@@ -56,37 +78,37 @@ button, a { transition: transform .16s cubic-bezier(.22,.7,.3,1), box-shadow .16
   </div>
 
   <!-- system controls -->
-  <div style="position:absolute;right:2.6%;top:4%;display:flex;gap:1.2vh">
-    <button onClick="{{ openMissions }}" style="position:relative;width:5.6vh;height:5.6vh;border-radius:50%;border:.4vh solid #fff;background:linear-gradient(180deg,#FF8ED0 0%,#E9349B 100%);box-shadow:inset 0 -.5vh 0 rgba(0,0,0,.16),0 .4vh .8vh rgba(20,73,107,.24);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;padding:0;transition:transform .16s cubic-bezier(.22,.7,.3,1),filter .16s ease" style-hover="filter:brightness(1.06)" style-active="transform:translateY(2px)">
-      <svg width="2.8vh" height="2.8vh" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6" fill="none" stroke="currentColor" stroke-width="2"></circle><circle cx="12" cy="12" r="4.6" fill="none" stroke="currentColor" stroke-width="2"></circle><circle cx="12" cy="12" r="1.7" fill="currentColor"></circle></svg><svg style="display:none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" d="M14.6 9.2a4 4 0 010 5.6"></path></svg>
-      <div style="position:absolute;top:-.6vh;right:-.6vh;min-width:2.3vh;height:2.3vh;padding:0 .4vh;border-radius:99px;border:.3vh solid #fff;background:linear-gradient(180deg,#FF6B60 0%,#E0332A 100%);color:#fff;font-family:Nunito;font-weight:900;font-size:1.1vh;display:flex;align-items:center;justify-content:center;text-shadow:0 .15vh 0 rgba(0,0,0,.3)">2</div>
+  <div style="position:absolute;right:2.6%;top:4%;display:flex;gap:1.2vmin">
+    <button class="home-tool" onClick="{{ openMissions }}" style="position:relative;width:5.6vmin;height:5.6vmin;border-radius:50%;border:.4vmin solid #fff;background:linear-gradient(180deg,#FF8ED0 0%,#E9349B 100%);box-shadow:inset 0 -.5vmin 0 rgba(0,0,0,.16),0 .4vmin .8vmin rgba(20,73,107,.24);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;padding:0;transition:transform .16s cubic-bezier(.22,.7,.3,1),filter .16s ease" style-hover="filter:brightness(1.06)" style-active="transform:translateY(2px)">
+      <svg width="2.8vmin" height="2.8vmin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6" fill="none" stroke="currentColor" stroke-width="2"></circle><circle cx="12" cy="12" r="4.6" fill="none" stroke="currentColor" stroke-width="2"></circle><circle cx="12" cy="12" r="1.7" fill="currentColor"></circle></svg><svg style="display:none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" d="M14.6 9.2a4 4 0 010 5.6"></path></svg>
+      <div style="position:absolute;top:-.6vmin;right:-.6vmin;min-width:2.3vmin;height:2.3vmin;padding:0 .4vmin;border-radius:99px;border:.3vmin solid #fff;background:linear-gradient(180deg,#FF6B60 0%,#E0332A 100%);color:#fff;font-family:Nunito;font-weight:900;font-size:1.1vmin;display:flex;align-items:center;justify-content:center;text-shadow:0 .15vmin 0 rgba(0,0,0,.3)">2</div>
     </button>
-    <button onClick="{{ openSound }}" style="width:5.6vh;height:5.6vh;border-radius:50%;border:.4vh solid #fff;background:linear-gradient(180deg,#7FDDF7 0%,#12A5E0 100%);box-shadow:inset 0 -.5vh 0 rgba(0,0,0,.16),0 .4vh .8vh rgba(20,73,107,.24);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;padding:0;transition:transform .16s cubic-bezier(.22,.7,.3,1),filter .16s ease" style-hover="filter:brightness(1.06)" style-active="transform:translateY(2px)">
-      <svg width="2.8vh" height="2.8vh" viewBox="0 0 24 24">
+    <button class="home-tool" onClick="{{ openSound }}" style="width:5.6vmin;height:5.6vmin;border-radius:50%;border:.4vmin solid #fff;background:linear-gradient(180deg,#7FDDF7 0%,#12A5E0 100%);box-shadow:inset 0 -.5vmin 0 rgba(0,0,0,.16),0 .4vmin .8vmin rgba(20,73,107,.24);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;padding:0;transition:transform .16s cubic-bezier(.22,.7,.3,1),filter .16s ease" style-hover="filter:brightness(1.06)" style-active="transform:translateY(2px)">
+      <svg width="2.8vmin" height="2.8vmin" viewBox="0 0 24 24">
         <path fill="currentColor" d="M4 9.2v5.6h3.6L12.6 19V5l-5 4.2H4z"></path>
         <path stroke="currentColor" stroke-width="1.9" fill="none" stroke-linecap="round" opacity="{{ arcNear }}" d="M15.8 8.6a4.6 4.6 0 010 6.8"></path>
         <path stroke="currentColor" stroke-width="1.9" fill="none" stroke-linecap="round" opacity="{{ arcFar }}" d="M18.6 6a8.4 8.4 0 010 12"></path>
         <path stroke="currentColor" stroke-width="2.2" stroke-linecap="round" opacity="{{ crossOut }}" d="M15.6 9.4l5 5.2M20.6 9.4l-5 5.2"></path>
       </svg>
     </button>
-    <button onClick="{{ openSettings }}" style="width:5.6vh;height:5.6vh;border-radius:50%;border:.4vh solid #fff;background:linear-gradient(180deg,#C9AEF9 0%,#9E77E8 100%);box-shadow:inset 0 -.5vh 0 rgba(0,0,0,.16),0 .4vh .8vh rgba(20,73,107,.24);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;padding:0;transition:transform .16s cubic-bezier(.22,.7,.3,1),filter .16s ease" style-hover="filter:brightness(1.06)" style-active="transform:translateY(2px)">
-      <svg width="2.8vh" height="2.8vh" viewBox="0 0 24 24"><path fill="currentColor" d="M19.14,12.94a7.14,7.14,0,000-1.88l2.11-1.65a.5.5,0,00.12-.64l-2-3.46a.5.5,0,00-.6-.22l-2.49,1a7.3,7.3,0,00-1.62-.94l-.38-2.65A.5.5,0,0013.8,2h-4a.5.5,0,00-.5.42l-.38,2.65a7.3,7.3,0,00-1.62.94l-2.49-1a.5.5,0,00-.6.22l-2,3.46a.5.5,0,00.12.64l2.11,1.65a7.14,7.14,0,000,1.88l-2.11,1.65a.5.5,0,00-.12.64l2,3.46a.5.5,0,00.6.22l2.49-1a7.3,7.3,0,001.62.94l.38,2.65a.5.5,0,00.5.42h4a.5.5,0,00.5-.42l.38-2.65a7.3,7.3,0,001.62-.94l2.49,1a.5.5,0,00.6-.22l2-3.46a.5.5,0,00-.12-.64ZM12,15.5A3.5,3.5,0,1115.5,12,3.5,3.5,0,0112,15.5Z"></path></svg>
+    <button class="home-tool" onClick="{{ openSettings }}" style="width:5.6vmin;height:5.6vmin;border-radius:50%;border:.4vmin solid #fff;background:linear-gradient(180deg,#C9AEF9 0%,#9E77E8 100%);box-shadow:inset 0 -.5vmin 0 rgba(0,0,0,.16),0 .4vmin .8vmin rgba(20,73,107,.24);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;padding:0;transition:transform .16s cubic-bezier(.22,.7,.3,1),filter .16s ease" style-hover="filter:brightness(1.06)" style-active="transform:translateY(2px)">
+      <svg width="2.8vmin" height="2.8vmin" viewBox="0 0 24 24"><path fill="currentColor" d="M19.14,12.94a7.14,7.14,0,000-1.88l2.11-1.65a.5.5,0,00.12-.64l-2-3.46a.5.5,0,00-.6-.22l-2.49,1a7.3,7.3,0,00-1.62-.94l-.38-2.65A.5.5,0,0013.8,2h-4a.5.5,0,00-.5.42l-.38,2.65a7.3,7.3,0,00-1.62.94l-2.49-1a.5.5,0,00-.6.22l-2,3.46a.5.5,0,00.12.64l2.11,1.65a7.14,7.14,0,000,1.88l-2.11,1.65a.5.5,0,00-.12.64l2,3.46a.5.5,0,00.6.22l2.49-1a7.3,7.3,0,001.62.94l.38,2.65a.5.5,0,00.5.42h4a.5.5,0,00.5-.42l.38-2.65a7.3,7.3,0,001.62-.94l2.49,1a.5.5,0,00.6-.22l2-3.46a.5.5,0,00-.12-.64ZM12,15.5A3.5,3.5,0,1115.5,12,3.5,3.5,0,0112,15.5Z"></path></svg>
     </button>
   </div>
 
   <!-- the one loud thing -->
-  <a href="Chamki Firefly Forest.dc.html" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;gap:1.3vh;width:26vh;height:8.6vh;padding-bottom:.8vh;box-sizing:border-box;border-radius:2.4vh;border:.5vh solid #fff;background:linear-gradient(180deg,#C9AEF9 0%,#8B5CE0 100%);box-shadow:inset 0 -1vh 0 rgba(0,0,0,.16),0 1.4vh 2.4vh rgba(20,73,107,.34);color:#fff;font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:5vh;line-height:1;letter-spacing:.05em;text-decoration:none;text-shadow:0 .4vh 0 rgba(0,0,0,.22);transition:transform .16s cubic-bezier(.22,.7,.3,1),filter .16s ease" style-hover="filter:brightness(1.05);transform:translate(-50%,-50%) translateY(-.5vh)" style-active="transform:translate(-50%,-50%) translateY(3px)">
-    <svg width="2.6vh" height="2.6vh" viewBox="0 0 24 24" style="flex:none;margin-top:.3vh"><path fill="#fff" d="M7 4.6l13 7.4-13 7.4V4.6z"></path></svg>
-    <span style="margin-top:.2vh">PLAY</span>
+  <a class="home-play" href="Chamki Firefly Forest.dc.html" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;gap:1.3vmin;width:26vmin;height:8.6vmin;padding-bottom:.8vmin;box-sizing:border-box;border-radius:2.4vmin;border:.5vmin solid #fff;background:linear-gradient(180deg,#C9AEF9 0%,#8B5CE0 100%);box-shadow:inset 0 -1vmin 0 rgba(0,0,0,.16),0 1.4vmin 2.4vmin rgba(20,73,107,.34);color:#fff;font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:5vmin;line-height:1;letter-spacing:.05em;text-decoration:none;text-shadow:0 .4vmin 0 rgba(0,0,0,.22);transition:transform .16s cubic-bezier(.22,.7,.3,1),filter .16s ease" style-hover="filter:brightness(1.05);transform:translate(-50%,-50%) translateY(-.5vmin)" style-active="transform:translate(-50%,-50%) translateY(3px)">
+    <svg width="2.6vmin" height="2.6vmin" viewBox="0 0 24 24" style="flex:none;margin-top:.3vmin"><path fill="#fff" d="M7 4.6l13 7.4-13 7.4V4.6z"></path></svg>
+    <span style="margin-top:.2vmin">PLAY</span>
   </a>
 
   <!-- Missions now lives in the top-right cluster with the other system
        controls, so the bottom rail carries the one thing a first-time
        player actually needs, in the corner where help belongs. -->
-  <div style="position:absolute;left:2.6%;bottom:6%;display:flex;gap:1.8vh">
-    <button onClick="{{ openHelp }}" style="display:flex;align-items:center;justify-content:center;gap:1.1vh;height:7.4vh;padding:0 2.6vh 0 2vh;padding-bottom:.55vh;box-sizing:border-box;border:.45vh solid #fff;border-radius:2.2vh;background:linear-gradient(180deg,#A5EA76 0%,#3FA80F 100%);box-shadow:inset 0 -.65vh 0 rgba(0,0,0,.16),0 .8vh 1.6vh rgba(20,73,107,.3);cursor:pointer;color:#fff;font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:2vh;line-height:1;letter-spacing:.05em;white-space:nowrap;text-shadow:0 .25vh 0 rgba(0,0,0,.24);transition:transform .16s cubic-bezier(.22,.7,.3,1),filter .16s ease" style-hover="filter:brightness(1.06);transform:translateY(-.4vh)" style-active="transform:translateY(2px)">
-      <svg width="2.8vh" height="2.8vh" viewBox="0 0 24 24" style="flex:none"><path fill="#fff" d="M12 5.6c2.2 0 3.9 1.4 3.9 3.4 0 1.6-.9 2.3-2 3-.9.6-1.2 1-1.2 1.9v.4h-2.2v-.6c0-1.6.7-2.4 1.9-3.2.8-.5 1.1-.9 1.1-1.5 0-.8-.6-1.3-1.5-1.3s-1.6.6-1.6 1.6H8.2c0-2.1 1.6-3.7 3.8-3.7zm-.2 10.5a1.4 1.4 0 110 2.8 1.4 1.4 0 010-2.8z"></path></svg>
-      <span style="margin-top:.2vh">HOW TO PLAY</span>
+  <div style="position:absolute;left:2.6%;bottom:6%;display:flex;gap:1.8vmin">
+    <button class="home-help" onClick="{{ openHelp }}" style="display:flex;align-items:center;justify-content:center;gap:1.1vmin;height:7.4vmin;padding:0 2.6vmin 0 2vmin;padding-bottom:.55vmin;box-sizing:border-box;border:.45vmin solid #fff;border-radius:2.2vmin;background:linear-gradient(180deg,#A5EA76 0%,#3FA80F 100%);box-shadow:inset 0 -.65vmin 0 rgba(0,0,0,.16),0 .8vmin 1.6vmin rgba(20,73,107,.3);cursor:pointer;color:#fff;font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:2vmin;line-height:1;letter-spacing:.05em;white-space:nowrap;text-shadow:0 .25vmin 0 rgba(0,0,0,.24);transition:transform .16s cubic-bezier(.22,.7,.3,1),filter .16s ease" style-hover="filter:brightness(1.06);transform:translateY(-.4vmin)" style-active="transform:translateY(2px)">
+      <svg width="2.8vmin" height="2.8vmin" viewBox="0 0 24 24" style="flex:none"><path fill="#fff" d="M12 5.6c2.2 0 3.9 1.4 3.9 3.4 0 1.6-.9 2.3-2 3-.9.6-1.2 1-1.2 1.9v.4h-2.2v-.6c0-1.6.7-2.4 1.9-3.2.8-.5 1.1-.9 1.1-1.5 0-.8-.6-1.3-1.5-1.3s-1.6.6-1.6 1.6H8.2c0-2.1 1.6-3.7 3.8-3.7zm-.2 10.5a1.4 1.4 0 110 2.8 1.4 1.4 0 010-2.8z"></path></svg>
+      <span style="margin-top:.2vmin">HOW TO PLAY</span>
     </button>
   </div>
 
@@ -95,43 +117,43 @@ button, a { transition: transform .16s cubic-bezier(.22,.7,.3,1), box-shadow .16
   </sc-if>
 
   <sc-if value="{{ isProfile }}" hint-placeholder-val="{{ false }}">
-    <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:64vh;max-width:92%;max-height:86%;display:flex;flex-direction:column;border-radius:3vh;background:linear-gradient(160deg,rgba(50,78,116,.80) 0%,rgba(18,34,56,.88) 100%);backdrop-filter:blur(26px) saturate(1.5);-webkit-backdrop-filter:blur(26px) saturate(1.5);border:.32vh solid rgba(255,255,255,.34);box-shadow:0 2.6vh 5.4vh rgba(9,28,44,.55);overflow:hidden">
-      <div style="display:flex;align-items:center;gap:1.4vh;padding:1.6vh 1.6vh 0">
-        <div style="flex:1;display:flex;align-items:center;height:6.2vh;padding-left:1vh;font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:2.9vh;letter-spacing:.01em;color:#fff;text-shadow:0 .2vh .8vh rgba(9,28,44,.45)">PROFILE</div>
-        <button onClick="{{ closePopup }}" style="flex:none;width:6.2vh;height:6.2vh;border-radius:50%;border:.3vh solid rgba(255,255,255,.5);background:linear-gradient(180deg,#FF9E96 0%,#F2564A 100%);box-shadow:inset 0 -.55vh 0 rgba(0,0,0,.16);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;padding:0" style-hover="filter:brightness(1.08)" style-active="transform:translateY(2px)">
-          <svg width="2.6vh" height="2.6vh" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="3.2" stroke-linecap="round" d="M7 7l10 10M17 7L7 17"></path></svg>
+    <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:64vmin;max-width:92%;max-height:86%;display:flex;flex-direction:column;border-radius:3vmin;background:linear-gradient(160deg,rgba(50,78,116,.80) 0%,rgba(18,34,56,.88) 100%);backdrop-filter:blur(26px) saturate(1.5);-webkit-backdrop-filter:blur(26px) saturate(1.5);border:.32vmin solid rgba(255,255,255,.34);box-shadow:0 2.6vmin 5.4vmin rgba(9,28,44,.55);overflow:hidden">
+      <div style="display:flex;align-items:center;gap:1.4vmin;padding:1.6vmin 1.6vmin 0">
+        <div style="flex:1;display:flex;align-items:center;height:6.2vmin;padding-left:1vmin;font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:2.9vmin;letter-spacing:.01em;color:#fff;text-shadow:0 .2vmin .8vmin rgba(9,28,44,.45)">PROFILE</div>
+        <button onClick="{{ closePopup }}" style="flex:none;width:6.2vmin;height:6.2vmin;border-radius:50%;border:.3vmin solid rgba(255,255,255,.5);background:linear-gradient(180deg,#FF9E96 0%,#F2564A 100%);box-shadow:inset 0 -.55vmin 0 rgba(0,0,0,.16);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;padding:0" style-hover="filter:brightness(1.08)" style-active="transform:translateY(2px)">
+          <svg width="2.6vmin" height="2.6vmin" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="3.2" stroke-linecap="round" d="M7 7l10 10M17 7L7 17"></path></svg>
         </button>
       </div>
 
-      <div style="flex:1;overflow-y:auto;padding:2.2vh 2.6vh 2.8vh;display:flex;flex-direction:column;gap:1.8vh">
+      <div style="flex:1;overflow-y:auto;padding:2.2vmin 2.6vmin 2.8vmin;display:flex;flex-direction:column;gap:1.8vmin">
 
-          <div style="display:flex;align-items:center;gap:2vh">
-            <div style="flex:none;width:13vh;height:13vh;border-radius:2.4vh;background:{{ avatarBg }};background-size:cover;background-position:center;box-shadow:inset 0 -.6vh 0 rgba(0,0,0,.16),0 .7vh 1.4vh rgba(20,73,107,.28);display:flex;align-items:center;justify-content:center;color:#fff;overflow:hidden">
+          <div style="display:flex;align-items:center;gap:2vmin">
+            <div style="flex:none;width:13vmin;height:13vmin;border-radius:2.4vmin;background:{{ avatarBg }};background-size:cover;background-position:center;box-shadow:inset 0 -.6vmin 0 rgba(0,0,0,.16),0 .7vmin 1.4vmin rgba(20,73,107,.28);display:flex;align-items:center;justify-content:center;color:#fff;overflow:hidden">
               <sc-if value="{{ noAvatar }}" hint-placeholder-val="{{ true }}">
-                <svg width="7vh" height="7vh" viewBox="0 0 24 24"><circle cx="12" cy="8.4" r="3.8" fill="currentColor"></circle><path d="M4.6 20c0-3.9 3.4-5.8 7.4-5.8s7.4 1.9 7.4 5.8" fill="currentColor"></path></svg>
+                <svg width="7vmin" height="7vmin" viewBox="0 0 24 24"><circle cx="12" cy="8.4" r="3.8" fill="currentColor"></circle><path d="M4.6 20c0-3.9 3.4-5.8 7.4-5.8s7.4 1.9 7.4 5.8" fill="currentColor"></path></svg>
               </sc-if>
             </div>
-            <div style="flex:1;display:flex;flex-direction:column;gap:1vh">
-              <label style="height:5.6vh;border:.3vh solid rgba(255,255,255,.5);border-radius:1.6vh;background:linear-gradient(180deg,#7FDDF7 0%,#12A5E0 100%);box-shadow:inset 0 -.5vh 0 rgba(0,0,0,.16);cursor:pointer;color:#fff;font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:1.75vh;letter-spacing:.06em;display:flex;align-items:center;justify-content:center;transition:transform .16s cubic-bezier(.22,.7,.3,1),filter .16s ease" style-hover="filter:brightness(1.06)" style-active="transform:translateY(2px)">
+            <div style="flex:1;display:flex;flex-direction:column;gap:1vmin">
+              <label style="height:5.6vmin;border:.3vmin solid rgba(255,255,255,.5);border-radius:1.6vmin;background:linear-gradient(180deg,#7FDDF7 0%,#12A5E0 100%);box-shadow:inset 0 -.5vmin 0 rgba(0,0,0,.16);cursor:pointer;color:#fff;font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:1.75vmin;letter-spacing:.06em;display:flex;align-items:center;justify-content:center;transition:transform .16s cubic-bezier(.22,.7,.3,1),filter .16s ease" style-hover="filter:brightness(1.06)" style-active="transform:translateY(2px)">
                 CHOOSE A PICTURE
                 <input ref="{{ fileRef }}" onChange="{{ pickFile }}" type="file" accept="image/*" style="display:none" />
               </label>
               <sc-if value="{{ hasAvatar }}" hint-placeholder-val="{{ false }}">
-                <button onClick="{{ clearPic }}" style="height:4.4vh;border:.3vh solid #fff;border-radius:1.3vh;background:#F6E2E6;box-shadow:inset 0 0 0 .3vh #F2A9C4;cursor:pointer;color:#9C3A55;font-family:Nunito;font-weight:900;font-size:1.25vh;letter-spacing:.12em" style-hover="filter:brightness(.98)" style-active="transform:translateY(2px)">REMOVE PICTURE</button>
+                <button onClick="{{ clearPic }}" style="height:4.4vmin;border:.3vmin solid #fff;border-radius:1.3vmin;background:#F6E2E6;box-shadow:inset 0 0 0 .3vmin #F2A9C4;cursor:pointer;color:#9C3A55;font-family:Nunito;font-weight:900;font-size:1.25vmin;letter-spacing:.12em" style-hover="filter:brightness(.98)" style-active="transform:translateY(2px)">REMOVE PICTURE</button>
               </sc-if>
             </div>
           </div>
 
 
-          <div style="display:flex;flex-direction:column;gap:.9vh">
-            <div style="font-family:Nunito;font-weight:800;font-size:1.15vh;letter-spacing:.18em;color:rgba(255,255,255,.72)">WHAT SHOULD WE CALL YOU?</div>
-            <div style="display:flex;gap:1.2vh">
+          <div style="display:flex;flex-direction:column;gap:.9vmin">
+            <div style="font-family:Nunito;font-weight:800;font-size:1.15vmin;letter-spacing:.18em;color:rgba(255,255,255,.72)">WHAT SHOULD WE CALL YOU?</div>
+            <div style="display:flex;gap:1.2vmin">
               <input class="fld" type="text" maxlength="16" placeholder="Your name" value="{{ draftName }}" onChange="{{ onName }}" />
-              <button onClick="{{ saveName }}" style="flex:none;height:6.4vh;padding:0 2.6vh;border:.3vh solid rgba(255,255,255,.5);border-radius:1.8vh;background:linear-gradient(180deg,#A5EA76 0%,#3FA80F 100%);box-shadow:inset 0 -.5vh 0 rgba(0,0,0,.16);cursor:pointer;color:#fff;font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:1.8vh;letter-spacing:.06em;text-shadow:0 .2vh 0 rgba(0,0,0,.24)" style-hover="filter:brightness(1.06)" style-active="transform:translateY(2px)">SAVE</button>
+              <button onClick="{{ saveName }}" style="flex:none;height:6.4vmin;padding:0 2.6vmin;border:.3vmin solid rgba(255,255,255,.5);border-radius:1.8vmin;background:linear-gradient(180deg,#A5EA76 0%,#3FA80F 100%);box-shadow:inset 0 -.5vmin 0 rgba(0,0,0,.16);cursor:pointer;color:#fff;font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:1.8vmin;letter-spacing:.06em;text-shadow:0 .2vmin 0 rgba(0,0,0,.24)" style-hover="filter:brightness(1.06)" style-active="transform:translateY(2px)">SAVE</button>
             </div>
           </div>
 
-          <div style="font-family:Nunito;font-weight:700;font-size:1.35vh;line-height:1.5;color:rgba(255,255,255,.80);text-wrap:pretty">Your name and picture stay on this device. Nothing is sent anywhere.</div>
+          <div style="font-family:Nunito;font-weight:700;font-size:1.35vmin;line-height:1.5;color:rgba(255,255,255,.80);text-wrap:pretty">Your name and picture stay on this device. Nothing is sent anywhere.</div>
 
         </sc-if>
 
@@ -140,147 +162,147 @@ button, a { transition: transform .16s cubic-bezier(.22,.7,.3,1), box-shadow .16
   </sc-if>
 
   <sc-if value="{{ isSound }}" hint-placeholder-val="{{ false }}">
-    <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:64vh;max-width:92%;max-height:86%;display:flex;flex-direction:column;border-radius:3vh;background:linear-gradient(160deg,rgba(50,78,116,.80) 0%,rgba(18,34,56,.88) 100%);backdrop-filter:blur(26px) saturate(1.5);-webkit-backdrop-filter:blur(26px) saturate(1.5);border:.32vh solid rgba(255,255,255,.34);box-shadow:0 2.6vh 5.4vh rgba(9,28,44,.55);overflow:hidden">
-      <div style="display:flex;align-items:center;gap:1.4vh;padding:1.6vh 1.6vh 0">
-        <div style="flex:1;display:flex;align-items:center;height:6.2vh;padding-left:1vh;font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:2.9vh;letter-spacing:.01em;color:#fff;text-shadow:0 .2vh .8vh rgba(9,28,44,.45)">SOUND</div>
-        <button onClick="{{ closePopup }}" style="flex:none;width:6.2vh;height:6.2vh;border-radius:50%;border:.3vh solid rgba(255,255,255,.5);background:linear-gradient(180deg,#FF9E96 0%,#F2564A 100%);box-shadow:inset 0 -.55vh 0 rgba(0,0,0,.16);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;padding:0;transition:transform .16s cubic-bezier(.22,.7,.3,1),filter .16s ease" style-hover="filter:brightness(1.08)" style-active="transform:translateY(2px)">
-          <svg width="2.6vh" height="2.6vh" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="3.2" stroke-linecap="round" d="M7 7l10 10M17 7L7 17"></path></svg>
+    <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:64vmin;max-width:92%;max-height:86%;display:flex;flex-direction:column;border-radius:3vmin;background:linear-gradient(160deg,rgba(50,78,116,.80) 0%,rgba(18,34,56,.88) 100%);backdrop-filter:blur(26px) saturate(1.5);-webkit-backdrop-filter:blur(26px) saturate(1.5);border:.32vmin solid rgba(255,255,255,.34);box-shadow:0 2.6vmin 5.4vmin rgba(9,28,44,.55);overflow:hidden">
+      <div style="display:flex;align-items:center;gap:1.4vmin;padding:1.6vmin 1.6vmin 0">
+        <div style="flex:1;display:flex;align-items:center;height:6.2vmin;padding-left:1vmin;font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:2.9vmin;letter-spacing:.01em;color:#fff;text-shadow:0 .2vmin .8vmin rgba(9,28,44,.45)">SOUND</div>
+        <button onClick="{{ closePopup }}" style="flex:none;width:6.2vmin;height:6.2vmin;border-radius:50%;border:.3vmin solid rgba(255,255,255,.5);background:linear-gradient(180deg,#FF9E96 0%,#F2564A 100%);box-shadow:inset 0 -.55vmin 0 rgba(0,0,0,.16);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;padding:0;transition:transform .16s cubic-bezier(.22,.7,.3,1),filter .16s ease" style-hover="filter:brightness(1.08)" style-active="transform:translateY(2px)">
+          <svg width="2.6vmin" height="2.6vmin" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="3.2" stroke-linecap="round" d="M7 7l10 10M17 7L7 17"></path></svg>
         </button>
       </div>
-      <div style="flex:1;overflow-y:auto;padding:2.2vh 2.6vh 2.8vh">
-        <div style="display:flex;align-items:center;gap:1.4vh;padding:1.6vh 0">
-          <button onClick="{{ toggleMusic }}" style="flex:none;width:5.4vh;height:5.4vh;border-radius:1.5vh;border:.35vh solid #fff;background:linear-gradient(180deg,#C9AEF9 0%,#9E77E8 100%);box-shadow:inset 0 -.45vh 0 rgba(0,0,0,.16),0 .4vh .8vh rgba(20,73,107,.2);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;padding:0;transition:transform .16s cubic-bezier(.22,.7,.3,1),filter .16s ease" style-hover="filter:brightness(1.08)" style-active="transform:translateY(2px)">
+      <div style="flex:1;overflow-y:auto;padding:2.2vmin 2.6vmin 2.8vmin">
+        <div style="display:flex;align-items:center;gap:1.4vmin;padding:1.6vmin 0">
+          <button onClick="{{ toggleMusic }}" style="flex:none;width:5.4vmin;height:5.4vmin;border-radius:1.5vmin;border:.35vmin solid #fff;background:linear-gradient(180deg,#C9AEF9 0%,#9E77E8 100%);box-shadow:inset 0 -.45vmin 0 rgba(0,0,0,.16),0 .4vmin .8vmin rgba(20,73,107,.2);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;padding:0;transition:transform .16s cubic-bezier(.22,.7,.3,1),filter .16s ease" style-hover="filter:brightness(1.08)" style-active="transform:translateY(2px)">
             <sc-if value="{{ musicOn }}" hint-placeholder-val="{{ true }}">
-              <svg width="2.8vh" height="2.8vh" viewBox="0 0 24 24"><path fill="currentColor" d="M4 9.2v5.6h3.6L12.6 19V5l-5 4.2H4z"></path><path stroke="currentColor" stroke-width="1.9" fill="none" stroke-linecap="round" d="M15.8 8.6a4.6 4.6 0 010 6.8"></path></svg>
+              <svg width="2.8vmin" height="2.8vmin" viewBox="0 0 24 24"><path fill="currentColor" d="M4 9.2v5.6h3.6L12.6 19V5l-5 4.2H4z"></path><path stroke="currentColor" stroke-width="1.9" fill="none" stroke-linecap="round" d="M15.8 8.6a4.6 4.6 0 010 6.8"></path></svg>
             </sc-if>
             <sc-if value="{{ musicMuted }}" hint-placeholder-val="{{ false }}">
-              <svg width="2.8vh" height="2.8vh" viewBox="0 0 24 24"><path fill="currentColor" d="M4 9.2v5.6h3.6L12.6 19V5l-5 4.2H4z"></path><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M16 9.4l4.6 5.2M20.6 9.4L16 14.6"></path></svg>
+              <svg width="2.8vmin" height="2.8vmin" viewBox="0 0 24 24"><path fill="currentColor" d="M4 9.2v5.6h3.6L12.6 19V5l-5 4.2H4z"></path><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M16 9.4l4.6 5.2M20.6 9.4L16 14.6"></path></svg>
             </sc-if>
           </button>
-          <div style="flex:1;display:flex;flex-direction:column;gap:.9vh">
+          <div style="flex:1;display:flex;flex-direction:column;gap:.9vmin">
             <div style="display:flex;align-items:baseline;justify-content:space-between">
-              <div style="font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:2vh;letter-spacing:.06em;color:#FFFFFF">MUSIC</div>
-              <div style="font-family:Nunito;font-weight:900;font-size:1.6vh;color:rgba(255,255,255,.80)">{{ musicPct }}</div>
+              <div style="font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:2vmin;letter-spacing:.06em;color:#FFFFFF">MUSIC</div>
+              <div style="font-family:Nunito;font-weight:900;font-size:1.6vmin;color:rgba(255,255,255,.80)">{{ musicPct }}</div>
             </div>
-            <div style="display:flex;gap:.6vh;height:3.4vh">
+            <div style="display:flex;gap:.6vmin;height:3.4vmin">
               <sc-for list="{{ musicBars }}" as="b" hint-placeholder-count="10">
-                <button onClick="{{ b.set }}" style="flex:1;border:none;border-radius:.9vh;background:{{ b.colour }};opacity:{{ b.dim }};cursor:pointer;padding:0;box-shadow:inset 0 -.3vh 0 rgba(0,0,0,.14);transition:opacity .12s ease,transform .12s ease" style-hover="transform:translateY(-.25vh)" style-active="transform:translateY(1px)"></button>
+                <button onClick="{{ b.set }}" style="flex:1;border:none;border-radius:.9vmin;background:{{ b.colour }};opacity:{{ b.dim }};cursor:pointer;padding:0;box-shadow:inset 0 -.3vmin 0 rgba(0,0,0,.14);transition:opacity .12s ease,transform .12s ease" style-hover="transform:translateY(-.25vmin)" style-active="transform:translateY(1px)"></button>
               </sc-for>
             </div>
           </div>
         </div>
-        <div style="height:.25vh;background:rgba(255,255,255,.18);border-radius:99px;margin:.6vh 0"></div>
-        <div style="display:flex;align-items:center;gap:1.4vh;padding:1.6vh 0">
-          <button onClick="{{ toggleSfx }}" style="flex:none;width:5.4vh;height:5.4vh;border-radius:1.5vh;border:.35vh solid #fff;background:linear-gradient(180deg,#7FDDF7 0%,#12A5E0 100%);box-shadow:inset 0 -.45vh 0 rgba(0,0,0,.16),0 .4vh .8vh rgba(20,73,107,.2);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;padding:0;transition:transform .16s cubic-bezier(.22,.7,.3,1),filter .16s ease" style-hover="filter:brightness(1.08)" style-active="transform:translateY(2px)">
+        <div style="height:.25vmin;background:rgba(255,255,255,.18);border-radius:99px;margin:.6vmin 0"></div>
+        <div style="display:flex;align-items:center;gap:1.4vmin;padding:1.6vmin 0">
+          <button onClick="{{ toggleSfx }}" style="flex:none;width:5.4vmin;height:5.4vmin;border-radius:1.5vmin;border:.35vmin solid #fff;background:linear-gradient(180deg,#7FDDF7 0%,#12A5E0 100%);box-shadow:inset 0 -.45vmin 0 rgba(0,0,0,.16),0 .4vmin .8vmin rgba(20,73,107,.2);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;padding:0;transition:transform .16s cubic-bezier(.22,.7,.3,1),filter .16s ease" style-hover="filter:brightness(1.08)" style-active="transform:translateY(2px)">
             <sc-if value="{{ sfxIsOn }}" hint-placeholder-val="{{ true }}">
-              <svg width="2.8vh" height="2.8vh" viewBox="0 0 24 24"><path fill="currentColor" d="M4 9.2v5.6h3.6L12.6 19V5l-5 4.2H4z"></path><path stroke="currentColor" stroke-width="1.9" fill="none" stroke-linecap="round" d="M15.8 8.6a4.6 4.6 0 010 6.8"></path></svg>
+              <svg width="2.8vmin" height="2.8vmin" viewBox="0 0 24 24"><path fill="currentColor" d="M4 9.2v5.6h3.6L12.6 19V5l-5 4.2H4z"></path><path stroke="currentColor" stroke-width="1.9" fill="none" stroke-linecap="round" d="M15.8 8.6a4.6 4.6 0 010 6.8"></path></svg>
             </sc-if>
             <sc-if value="{{ sfxMuted }}" hint-placeholder-val="{{ false }}">
-              <svg width="2.8vh" height="2.8vh" viewBox="0 0 24 24"><path fill="currentColor" d="M4 9.2v5.6h3.6L12.6 19V5l-5 4.2H4z"></path><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M16 9.4l4.6 5.2M20.6 9.4L16 14.6"></path></svg>
+              <svg width="2.8vmin" height="2.8vmin" viewBox="0 0 24 24"><path fill="currentColor" d="M4 9.2v5.6h3.6L12.6 19V5l-5 4.2H4z"></path><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M16 9.4l4.6 5.2M20.6 9.4L16 14.6"></path></svg>
             </sc-if>
           </button>
-          <div style="flex:1;display:flex;flex-direction:column;gap:.9vh">
+          <div style="flex:1;display:flex;flex-direction:column;gap:.9vmin">
             <div style="display:flex;align-items:baseline;justify-content:space-between">
-              <div style="font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:2vh;letter-spacing:.06em;color:#FFFFFF">SOUNDS</div>
-              <div style="font-family:Nunito;font-weight:900;font-size:1.6vh;color:rgba(255,255,255,.80)">{{ sfxPct }}</div>
+              <div style="font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:2vmin;letter-spacing:.06em;color:#FFFFFF">SOUNDS</div>
+              <div style="font-family:Nunito;font-weight:900;font-size:1.6vmin;color:rgba(255,255,255,.80)">{{ sfxPct }}</div>
             </div>
-            <div style="display:flex;gap:.6vh;height:3.4vh">
+            <div style="display:flex;gap:.6vmin;height:3.4vmin">
               <sc-for list="{{ sfxBars }}" as="b" hint-placeholder-count="10">
-                <button onClick="{{ b.set }}" style="flex:1;border:none;border-radius:.9vh;background:{{ b.colour }};opacity:{{ b.dim }};cursor:pointer;padding:0;box-shadow:inset 0 -.3vh 0 rgba(0,0,0,.14);transition:opacity .12s ease,transform .12s ease" style-hover="transform:translateY(-.25vh)" style-active="transform:translateY(1px)"></button>
+                <button onClick="{{ b.set }}" style="flex:1;border:none;border-radius:.9vmin;background:{{ b.colour }};opacity:{{ b.dim }};cursor:pointer;padding:0;box-shadow:inset 0 -.3vmin 0 rgba(0,0,0,.14);transition:opacity .12s ease,transform .12s ease" style-hover="transform:translateY(-.25vmin)" style-active="transform:translateY(1px)"></button>
               </sc-for>
             </div>
           </div>
         </div>
-        <button onClick="{{ toggleAll }}" style="width:100%;margin-top:1.4vh;height:6.4vh;border:.45vh solid #fff;border-radius:1.8vh;background:linear-gradient(180deg,#B9C7D8 0%,#6E8299 100%);box-shadow:inset 0 -.6vh 0 rgba(0,0,0,.16),0 .6vh 1.2vh rgba(20,73,107,.24);cursor:pointer;color:#fff;font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:1.9vh;letter-spacing:.08em;line-height:1;padding-bottom:.5vh;text-shadow:0 .25vh 0 rgba(0,0,0,.24);transition:transform .16s cubic-bezier(.22,.7,.3,1),filter .16s ease" style-hover="filter:brightness(1.05)" style-active="transform:translateY(2px)">{{ allLabel }}</button>
-        <div style="margin-top:1.4vh;font-family:Nunito;font-weight:700;font-size:1.4vh;line-height:1.5;color:rgba(255,255,255,.80);text-wrap:pretty">These settings follow you into the game.</div>
+        <button onClick="{{ toggleAll }}" style="width:100%;margin-top:1.4vmin;height:6.4vmin;border:.45vmin solid #fff;border-radius:1.8vmin;background:linear-gradient(180deg,#B9C7D8 0%,#6E8299 100%);box-shadow:inset 0 -.6vmin 0 rgba(0,0,0,.16),0 .6vmin 1.2vmin rgba(20,73,107,.24);cursor:pointer;color:#fff;font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:1.9vmin;letter-spacing:.08em;line-height:1;padding-bottom:.5vmin;text-shadow:0 .25vmin 0 rgba(0,0,0,.24);transition:transform .16s cubic-bezier(.22,.7,.3,1),filter .16s ease" style-hover="filter:brightness(1.05)" style-active="transform:translateY(2px)">{{ allLabel }}</button>
+        <div style="margin-top:1.4vmin;font-family:Nunito;font-weight:700;font-size:1.4vmin;line-height:1.5;color:rgba(255,255,255,.80);text-wrap:pretty">These settings follow you into the game.</div>
       </div>
     </div>
   </sc-if>
 
   <sc-if value="{{ isHelp }}" hint-placeholder-val="{{ false }}">
-    <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:76vh;max-width:92%;max-height:86%;display:flex;flex-direction:column;border-radius:3vh;background:linear-gradient(160deg,rgba(50,78,116,.80) 0%,rgba(18,34,56,.88) 100%);backdrop-filter:blur(26px) saturate(1.5);-webkit-backdrop-filter:blur(26px) saturate(1.5);border:.32vh solid rgba(255,255,255,.34);box-shadow:0 2.6vh 5.4vh rgba(9,28,44,.55);overflow:hidden">
-      <div style="display:flex;align-items:center;gap:1.4vh;padding:1.6vh 1.6vh 0">
-        <div style="flex:1;display:flex;align-items:center;height:6.2vh;padding-left:1vh;font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:2.9vh;letter-spacing:.01em;color:#fff;text-shadow:0 .2vh .8vh rgba(9,28,44,.45)">HOW TO PLAY</div>
-        <button onClick="{{ closePopup }}" style="flex:none;width:6.2vh;height:6.2vh;border-radius:50%;border:.3vh solid rgba(255,255,255,.5);background:linear-gradient(180deg,#FF9E96 0%,#F2564A 100%);box-shadow:inset 0 -.55vh 0 rgba(0,0,0,.16);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;padding:0;transition:transform .16s cubic-bezier(.22,.7,.3,1),filter .16s ease" style-hover="filter:brightness(1.08)" style-active="transform:translateY(2px)">
-          <svg width="2.6vh" height="2.6vh" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="3.2" stroke-linecap="round" d="M7 7l10 10M17 7L7 17"></path></svg>
+    <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:76vmin;max-width:92%;max-height:86%;display:flex;flex-direction:column;border-radius:3vmin;background:linear-gradient(160deg,rgba(50,78,116,.80) 0%,rgba(18,34,56,.88) 100%);backdrop-filter:blur(26px) saturate(1.5);-webkit-backdrop-filter:blur(26px) saturate(1.5);border:.32vmin solid rgba(255,255,255,.34);box-shadow:0 2.6vmin 5.4vmin rgba(9,28,44,.55);overflow:hidden">
+      <div style="display:flex;align-items:center;gap:1.4vmin;padding:1.6vmin 1.6vmin 0">
+        <div style="flex:1;display:flex;align-items:center;height:6.2vmin;padding-left:1vmin;font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:2.9vmin;letter-spacing:.01em;color:#fff;text-shadow:0 .2vmin .8vmin rgba(9,28,44,.45)">HOW TO PLAY</div>
+        <button onClick="{{ closePopup }}" style="flex:none;width:6.2vmin;height:6.2vmin;border-radius:50%;border:.3vmin solid rgba(255,255,255,.5);background:linear-gradient(180deg,#FF9E96 0%,#F2564A 100%);box-shadow:inset 0 -.55vmin 0 rgba(0,0,0,.16);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;padding:0;transition:transform .16s cubic-bezier(.22,.7,.3,1),filter .16s ease" style-hover="filter:brightness(1.08)" style-active="transform:translateY(2px)">
+          <svg width="2.6vmin" height="2.6vmin" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="3.2" stroke-linecap="round" d="M7 7l10 10M17 7L7 17"></path></svg>
         </button>
       </div>
-      <div style="flex:1;overflow-y:auto;padding:2.2vh 2.6vh 2.8vh">
-        <div style="display:flex;gap:1.6vh;padding:1.4vh 0;align-items:flex-start">
-          <div style="flex:none;width:5vh;height:5vh;border-radius:1.4vh;border:.35vh solid #fff;background:linear-gradient(180deg,#7FDDF7 0%,#12A5E0 100%);box-shadow:inset 0 -.45vh 0 rgba(0,0,0,.16);display:flex;align-items:center;justify-content:center;font-family:Nunito;font-weight:900;font-size:2vh;color:#fff;text-shadow:0 .2vh 0 rgba(0,0,0,.25)">1</div>
-          <div style="flex:1;display:flex;flex-direction:column;gap:.4vh">
-            <div style="font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:2vh;color:#FFFFFF">Plug in the flute</div>
-            <div style="font-family:Nunito;font-weight:600;font-size:1.6vh;line-height:1.5;color:rgba(255,255,255,.86);text-wrap:pretty">Press PLAY, then CONNECT and pick the port. Only needed the first time — after that it finds itself.</div>
+      <div style="flex:1;overflow-y:auto;padding:2.2vmin 2.6vmin 2.8vmin">
+        <div style="display:flex;gap:1.6vmin;padding:1.4vmin 0;align-items:flex-start">
+          <div style="flex:none;width:5vmin;height:5vmin;border-radius:1.4vmin;border:.35vmin solid #fff;background:linear-gradient(180deg,#7FDDF7 0%,#12A5E0 100%);box-shadow:inset 0 -.45vmin 0 rgba(0,0,0,.16);display:flex;align-items:center;justify-content:center;font-family:Nunito;font-weight:900;font-size:2vmin;color:#fff;text-shadow:0 .2vmin 0 rgba(0,0,0,.25)">1</div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:.4vmin">
+            <div style="font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:2vmin;color:#FFFFFF">Plug in the flute</div>
+            <div style="font-family:Nunito;font-weight:600;font-size:1.6vmin;line-height:1.5;color:rgba(255,255,255,.86);text-wrap:pretty">Press PLAY, then CONNECT and pick the port. Only needed the first time — after that it finds itself.</div>
           </div>
         </div>
-        <div style="display:flex;gap:1.6vh;padding:1.4vh 0;align-items:flex-start">
-          <div style="flex:none;width:5vh;height:5vh;border-radius:1.4vh;border:.35vh solid #fff;background:linear-gradient(180deg,#A5EA76 0%,#3FA80F 100%);box-shadow:inset 0 -.45vh 0 rgba(0,0,0,.16);display:flex;align-items:center;justify-content:center;font-family:Nunito;font-weight:900;font-size:2vh;color:#fff;text-shadow:0 .2vh 0 rgba(0,0,0,.25)">2</div>
-          <div style="flex:1;display:flex;flex-direction:column;gap:.4vh">
-            <div style="font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:2vh;color:#FFFFFF">Breathe out, twice</div>
-            <div style="font-family:Nunito;font-weight:600;font-size:1.6vh;line-height:1.5;color:rgba(255,255,255,.86);text-wrap:pretty">Every place starts by asking for two ordinary breaths. Not your biggest — the one that feels easy.</div>
+        <div style="display:flex;gap:1.6vmin;padding:1.4vmin 0;align-items:flex-start">
+          <div style="flex:none;width:5vmin;height:5vmin;border-radius:1.4vmin;border:.35vmin solid #fff;background:linear-gradient(180deg,#A5EA76 0%,#3FA80F 100%);box-shadow:inset 0 -.45vmin 0 rgba(0,0,0,.16);display:flex;align-items:center;justify-content:center;font-family:Nunito;font-weight:900;font-size:2vmin;color:#fff;text-shadow:0 .2vmin 0 rgba(0,0,0,.25)">2</div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:.4vmin">
+            <div style="font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:2vmin;color:#FFFFFF">Breathe out, twice</div>
+            <div style="font-family:Nunito;font-weight:600;font-size:1.6vmin;line-height:1.5;color:rgba(255,255,255,.86);text-wrap:pretty">Every place starts by asking for two ordinary breaths. Not your biggest — the one that feels easy.</div>
           </div>
         </div>
-        <div style="display:flex;gap:1.6vh;padding:1.4vh 0;align-items:flex-start">
-          <div style="flex:none;width:5vh;height:5vh;border-radius:1.4vh;border:.35vh solid #fff;background:linear-gradient(180deg,#FF8ED0 0%,#E9349B 100%);box-shadow:inset 0 -.45vh 0 rgba(0,0,0,.16);display:flex;align-items:center;justify-content:center;font-family:Nunito;font-weight:900;font-size:2vh;color:#fff;text-shadow:0 .2vh 0 rgba(0,0,0,.25)">3</div>
-          <div style="flex:1;display:flex;flex-direction:column;gap:.4vh">
-            <div style="font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:2vh;color:#FFFFFF">Play your way</div>
-            <div style="font-family:Nunito;font-weight:600;font-size:1.6vh;line-height:1.5;color:rgba(255,255,255,.86);text-wrap:pretty">The game measures those two breaths and sizes itself to you. A small pair of lungs and a big one both get a fair game.</div>
+        <div style="display:flex;gap:1.6vmin;padding:1.4vmin 0;align-items:flex-start">
+          <div style="flex:none;width:5vmin;height:5vmin;border-radius:1.4vmin;border:.35vmin solid #fff;background:linear-gradient(180deg,#FF8ED0 0%,#E9349B 100%);box-shadow:inset 0 -.45vmin 0 rgba(0,0,0,.16);display:flex;align-items:center;justify-content:center;font-family:Nunito;font-weight:900;font-size:2vmin;color:#fff;text-shadow:0 .2vmin 0 rgba(0,0,0,.25)">3</div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:.4vmin">
+            <div style="font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:2vmin;color:#FFFFFF">Play your way</div>
+            <div style="font-family:Nunito;font-weight:600;font-size:1.6vmin;line-height:1.5;color:rgba(255,255,255,.86);text-wrap:pretty">The game measures those two breaths and sizes itself to you. A small pair of lungs and a big one both get a fair game.</div>
           </div>
         </div>
-        <div style="display:flex;gap:1.6vh;padding:1.4vh 0;align-items:flex-start">
-          <div style="flex:none;width:5vh;height:5vh;border-radius:1.4vh;border:.35vh solid #fff;background:linear-gradient(180deg,#C9AEF9 0%,#9E77E8 100%);box-shadow:inset 0 -.45vh 0 rgba(0,0,0,.16);display:flex;align-items:center;justify-content:center;font-family:Nunito;font-weight:900;font-size:2vh;color:#fff;text-shadow:0 .2vh 0 rgba(0,0,0,.25)">4</div>
-          <div style="flex:1;display:flex;flex-direction:column;gap:.4vh">
-            <div style="font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:2vh;color:#FFFFFF">No losing</div>
-            <div style="font-family:Nunito;font-weight:600;font-size:1.6vh;line-height:1.5;color:rgba(255,255,255,.86);text-wrap:pretty">Nothing runs out and no score goes down. A short breath just means your friend does not climb as high that time.</div>
+        <div style="display:flex;gap:1.6vmin;padding:1.4vmin 0;align-items:flex-start">
+          <div style="flex:none;width:5vmin;height:5vmin;border-radius:1.4vmin;border:.35vmin solid #fff;background:linear-gradient(180deg,#C9AEF9 0%,#9E77E8 100%);box-shadow:inset 0 -.45vmin 0 rgba(0,0,0,.16);display:flex;align-items:center;justify-content:center;font-family:Nunito;font-weight:900;font-size:2vmin;color:#fff;text-shadow:0 .2vmin 0 rgba(0,0,0,.25)">4</div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:.4vmin">
+            <div style="font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:2vmin;color:#FFFFFF">No losing</div>
+            <div style="font-family:Nunito;font-weight:600;font-size:1.6vmin;line-height:1.5;color:rgba(255,255,255,.86);text-wrap:pretty">Nothing runs out and no score goes down. A short breath just means your friend does not climb as high that time.</div>
           </div>
         </div>
-        <div style="margin-top:1.6vh;padding:1.6vh 2vh;border-radius:1.6vh;background:rgba(255,255,255,.13);box-shadow:inset 0 0 0 .28vh rgba(20,73,107,.10),0 .35vh 0 rgba(20,73,107,.09)">
-          <div style="font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:1.7vh;color:#FFFFFF;margin-bottom:.5vh">No flute yet?</div>
-          <div style="font-family:Nunito;font-weight:600;font-size:1.55vh;line-height:1.5;color:rgba(255,255,255,.86);text-wrap:pretty">Choose Spacebar on the same screen. Hold it to breathe out, let go to breathe in. Everything else works exactly the same.</div>
+        <div style="margin-top:1.6vmin;padding:1.6vmin 2vmin;border-radius:1.6vmin;background:rgba(255,255,255,.13);box-shadow:inset 0 0 0 .28vmin rgba(20,73,107,.10),0 .35vmin 0 rgba(20,73,107,.09)">
+          <div style="font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:1.7vmin;color:#FFFFFF;margin-bottom:.5vmin">No flute yet?</div>
+          <div style="font-family:Nunito;font-weight:600;font-size:1.55vmin;line-height:1.5;color:rgba(255,255,255,.86);text-wrap:pretty">Choose Spacebar on the same screen. Hold it to breathe out, let go to breathe in. Everything else works exactly the same.</div>
         </div>
       </div>
     </div>
   </sc-if>
 
   <sc-if value="{{ isMissions }}" hint-placeholder-val="{{ false }}">
-    <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:70vh;max-width:92%;max-height:86%;display:flex;flex-direction:column;border-radius:3vh;background:linear-gradient(160deg,rgba(50,78,116,.80) 0%,rgba(18,34,56,.88) 100%);backdrop-filter:blur(26px) saturate(1.5);-webkit-backdrop-filter:blur(26px) saturate(1.5);border:.32vh solid rgba(255,255,255,.34);box-shadow:0 2.6vh 5.4vh rgba(9,28,44,.55);overflow:hidden">
-      <div style="display:flex;align-items:center;gap:1.4vh;padding:1.6vh 1.6vh 0">
-        <div style="flex:1;display:flex;align-items:center;height:6.2vh;padding-left:1vh;font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:2.9vh;letter-spacing:.01em;color:#fff;text-shadow:0 .2vh .8vh rgba(9,28,44,.45)">MISSIONS</div>
-        <button onClick="{{ closePopup }}" style="flex:none;width:6.2vh;height:6.2vh;border-radius:50%;border:.3vh solid rgba(255,255,255,.5);background:linear-gradient(180deg,#FF9E96 0%,#F2564A 100%);box-shadow:inset 0 -.55vh 0 rgba(0,0,0,.16);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;padding:0;transition:transform .16s cubic-bezier(.22,.7,.3,1),filter .16s ease" style-hover="filter:brightness(1.08)" style-active="transform:translateY(2px)">
-          <svg width="2.6vh" height="2.6vh" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="3.2" stroke-linecap="round" d="M7 7l10 10M17 7L7 17"></path></svg>
+    <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:70vmin;max-width:92%;max-height:86%;display:flex;flex-direction:column;border-radius:3vmin;background:linear-gradient(160deg,rgba(50,78,116,.80) 0%,rgba(18,34,56,.88) 100%);backdrop-filter:blur(26px) saturate(1.5);-webkit-backdrop-filter:blur(26px) saturate(1.5);border:.32vmin solid rgba(255,255,255,.34);box-shadow:0 2.6vmin 5.4vmin rgba(9,28,44,.55);overflow:hidden">
+      <div style="display:flex;align-items:center;gap:1.4vmin;padding:1.6vmin 1.6vmin 0">
+        <div style="flex:1;display:flex;align-items:center;height:6.2vmin;padding-left:1vmin;font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:2.9vmin;letter-spacing:.01em;color:#fff;text-shadow:0 .2vmin .8vmin rgba(9,28,44,.45)">MISSIONS</div>
+        <button onClick="{{ closePopup }}" style="flex:none;width:6.2vmin;height:6.2vmin;border-radius:50%;border:.3vmin solid rgba(255,255,255,.5);background:linear-gradient(180deg,#FF9E96 0%,#F2564A 100%);box-shadow:inset 0 -.55vmin 0 rgba(0,0,0,.16);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;padding:0;transition:transform .16s cubic-bezier(.22,.7,.3,1),filter .16s ease" style-hover="filter:brightness(1.08)" style-active="transform:translateY(2px)">
+          <svg width="2.6vmin" height="2.6vmin" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="3.2" stroke-linecap="round" d="M7 7l10 10M17 7L7 17"></path></svg>
         </button>
       </div>
-      <div style="flex:1;overflow-y:auto;padding:2.2vh 2.6vh 2.8vh">
-        <div style="display:flex;align-items:center;gap:1.4vh;margin-bottom:1.4vh">
-          <div style="flex:1;display:flex;flex-direction:column;gap:.2vh">
-            <div style="font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:1.9vh;color:#FFFFFF">{{ placesDone }} of 4 places visited</div>
-            <div style="font-family:Nunito;font-weight:600;font-size:1.45vh;color:rgba(255,255,255,.80)">Play them in any order. Nothing is locked.</div>
+      <div style="flex:1;overflow-y:auto;padding:2.2vmin 2.6vmin 2.8vmin">
+        <div style="display:flex;align-items:center;gap:1.4vmin;margin-bottom:1.4vmin">
+          <div style="flex:1;display:flex;flex-direction:column;gap:.2vmin">
+            <div style="font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:1.9vmin;color:#FFFFFF">{{ placesDone }} of 4 places visited</div>
+            <div style="font-family:Nunito;font-weight:600;font-size:1.45vmin;color:rgba(255,255,255,.80)">Play them in any order. Nothing is locked.</div>
           </div>
-          <div style="display:flex;align-items:center;gap:.7vh;height:4.4vh;padding:0 1.6vh;border-radius:99px;border:.35vh solid #fff;background:linear-gradient(180deg,#FFD75E 0%,#F0A62A 100%);box-shadow:inset 0 -.4vh 0 rgba(0,0,0,.16)">
-            <svg width="2.2vh" height="2.2vh" viewBox="0 0 24 24"><path d="M12 2.2l3 6.3 6.9.95-5 4.85 1.2 6.9-6.1-3.3-6.1 3.3 1.2-6.9-5-4.85 6.9-.95z" fill="#fff"></path></svg>
-            <div style="font-family:Nunito;font-weight:900;font-size:1.7vh;color:#fff;text-shadow:0 .2vh 0 rgba(0,0,0,.26)">{{ starsAll }}/12</div>
+          <div style="display:flex;align-items:center;gap:.7vmin;height:4.4vmin;padding:0 1.6vmin;border-radius:99px;border:.35vmin solid #fff;background:linear-gradient(180deg,#FFD75E 0%,#F0A62A 100%);box-shadow:inset 0 -.4vmin 0 rgba(0,0,0,.16)">
+            <svg width="2.2vmin" height="2.2vmin" viewBox="0 0 24 24"><path d="M12 2.2l3 6.3 6.9.95-5 4.85 1.2 6.9-6.1-3.3-6.1 3.3 1.2-6.9-5-4.85 6.9-.95z" fill="#fff"></path></svg>
+            <div style="font-family:Nunito;font-weight:900;font-size:1.7vmin;color:#fff;text-shadow:0 .2vmin 0 rgba(0,0,0,.26)">{{ starsAll }}/12</div>
           </div>
         </div>
 
         <sc-for list="{{ places }}" as="p" hint-placeholder-count="4">
-          <div style="display:flex;align-items:center;gap:1.5vh;padding:1.2vh;margin-bottom:1.1vh;border-radius:1.9vh;background:rgba(255,255,255,.13);box-shadow:inset 0 0 0 .28vh rgba(20,73,107,.10),0 .35vh 0 rgba(20,73,107,.09)">
-            <div style="flex:none;position:relative;width:8.4vh;height:6.4vh;border-radius:1.4vh;border:.35vh solid #fff;background-size:cover;background-position:{{ p.pos }};background-image:{{ p.art }};box-shadow:0 .35vh .7vh rgba(20,73,107,.24);overflow:hidden">
+          <div style="display:flex;align-items:center;gap:1.5vmin;padding:1.2vmin;margin-bottom:1.1vmin;border-radius:1.9vmin;background:rgba(255,255,255,.13);box-shadow:inset 0 0 0 .28vmin rgba(20,73,107,.10),0 .35vmin 0 rgba(20,73,107,.09)">
+            <div style="flex:none;position:relative;width:8.4vmin;height:6.4vmin;border-radius:1.4vmin;border:.35vmin solid #fff;background-size:cover;background-position:{{ p.pos }};background-image:{{ p.art }};box-shadow:0 .35vmin .7vmin rgba(20,73,107,.24);overflow:hidden">
               <div style="position:absolute;left:0;right:0;bottom:0;height:42%;background:linear-gradient(180deg,rgba(9,32,48,0),rgba(9,32,48,.5))"></div>
               <sc-if value="{{ p.notPlayed }}" hint-placeholder-val="{{ false }}">
                 <div style="position:absolute;inset:0;background:rgba(255,255,255,.55)"></div>
               </sc-if>
             </div>
-            <div style="flex:1;display:flex;flex-direction:column;gap:.35vh;min-width:0">
-              <div style="font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:1.85vh;line-height:1.1;color:#FFFFFF">{{ p.name }}</div>
-              <div style="font-family:Nunito;font-weight:600;font-size:1.4vh;line-height:1.3;color:rgba(255,255,255,.80);text-wrap:pretty">{{ p.teach }}</div>
+            <div style="flex:1;display:flex;flex-direction:column;gap:.35vmin;min-width:0">
+              <div style="font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:1.85vmin;line-height:1.1;color:#FFFFFF">{{ p.name }}</div>
+              <div style="font-family:Nunito;font-weight:600;font-size:1.4vmin;line-height:1.3;color:rgba(255,255,255,.80);text-wrap:pretty">{{ p.teach }}</div>
             </div>
-            <div style="flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:.5vh">
-              <div style="display:flex;gap:.4vh"><div style="width:2.5vh;height:2.5vh"><sc-if value="{{ p.s1 }}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 24 24" style="width:100%;height:100%"><path d="M12 2.2l3 6.3 6.9.95-5 4.85 1.2 6.9-6.1-3.3-6.1 3.3 1.2-6.9-5-4.85 6.9-.95z" fill="#F0A62A" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"></path></svg></sc-if><sc-if value="{{ p.n1 }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" style="width:100%;height:100%"><path d="M12 2.2l3 6.3 6.9.95-5 4.85 1.2 6.9-6.1-3.3-6.1 3.3 1.2-6.9-5-4.85 6.9-.95z" fill="#CBD6E2" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"></path></svg></sc-if></div><div style="width:2.5vh;height:2.5vh"><sc-if value="{{ p.s2 }}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 24 24" style="width:100%;height:100%"><path d="M12 2.2l3 6.3 6.9.95-5 4.85 1.2 6.9-6.1-3.3-6.1 3.3 1.2-6.9-5-4.85 6.9-.95z" fill="#F0A62A" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"></path></svg></sc-if><sc-if value="{{ p.n2 }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" style="width:100%;height:100%"><path d="M12 2.2l3 6.3 6.9.95-5 4.85 1.2 6.9-6.1-3.3-6.1 3.3 1.2-6.9-5-4.85 6.9-.95z" fill="#CBD6E2" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"></path></svg></sc-if></div><div style="width:2.5vh;height:2.5vh"><sc-if value="{{ p.s3 }}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 24 24" style="width:100%;height:100%"><path d="M12 2.2l3 6.3 6.9.95-5 4.85 1.2 6.9-6.1-3.3-6.1 3.3 1.2-6.9-5-4.85 6.9-.95z" fill="#F0A62A" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"></path></svg></sc-if><sc-if value="{{ p.n3 }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" style="width:100%;height:100%"><path d="M12 2.2l3 6.3 6.9.95-5 4.85 1.2 6.9-6.1-3.3-6.1 3.3 1.2-6.9-5-4.85 6.9-.95z" fill="#CBD6E2" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"></path></svg></sc-if></div></div>
+            <div style="flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:.5vmin">
+              <div style="display:flex;gap:.4vmin"><div style="width:2.5vmin;height:2.5vmin"><sc-if value="{{ p.s1 }}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 24 24" style="width:100%;height:100%"><path d="M12 2.2l3 6.3 6.9.95-5 4.85 1.2 6.9-6.1-3.3-6.1 3.3 1.2-6.9-5-4.85 6.9-.95z" fill="#F0A62A" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"></path></svg></sc-if><sc-if value="{{ p.n1 }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" style="width:100%;height:100%"><path d="M12 2.2l3 6.3 6.9.95-5 4.85 1.2 6.9-6.1-3.3-6.1 3.3 1.2-6.9-5-4.85 6.9-.95z" fill="#CBD6E2" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"></path></svg></sc-if></div><div style="width:2.5vmin;height:2.5vmin"><sc-if value="{{ p.s2 }}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 24 24" style="width:100%;height:100%"><path d="M12 2.2l3 6.3 6.9.95-5 4.85 1.2 6.9-6.1-3.3-6.1 3.3 1.2-6.9-5-4.85 6.9-.95z" fill="#F0A62A" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"></path></svg></sc-if><sc-if value="{{ p.n2 }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" style="width:100%;height:100%"><path d="M12 2.2l3 6.3 6.9.95-5 4.85 1.2 6.9-6.1-3.3-6.1 3.3 1.2-6.9-5-4.85 6.9-.95z" fill="#CBD6E2" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"></path></svg></sc-if></div><div style="width:2.5vmin;height:2.5vmin"><sc-if value="{{ p.s3 }}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 24 24" style="width:100%;height:100%"><path d="M12 2.2l3 6.3 6.9.95-5 4.85 1.2 6.9-6.1-3.3-6.1 3.3 1.2-6.9-5-4.85 6.9-.95z" fill="#F0A62A" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"></path></svg></sc-if><sc-if value="{{ p.n3 }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" style="width:100%;height:100%"><path d="M12 2.2l3 6.3 6.9.95-5 4.85 1.2 6.9-6.1-3.3-6.1 3.3 1.2-6.9-5-4.85 6.9-.95z" fill="#CBD6E2" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"></path></svg></sc-if></div></div>
               <sc-if value="{{ p.played }}" hint-placeholder-val="{{ true }}">
-                <div style="font-family:Nunito;font-weight:800;font-size:1.15vh;letter-spacing:.08em;color:rgba(255,255,255,.72)">PLAYED {{ p.plays }}x</div>
+                <div style="font-family:Nunito;font-weight:800;font-size:1.15vmin;letter-spacing:.08em;color:rgba(255,255,255,.72)">PLAYED {{ p.plays }}x</div>
               </sc-if>
               <sc-if value="{{ p.notPlayed }}" hint-placeholder-val="{{ false }}">
-                <div style="font-family:Nunito;font-weight:800;font-size:1.15vh;letter-spacing:.08em;color:rgba(255,255,255,.72)">NOT YET</div>
+                <div style="font-family:Nunito;font-weight:800;font-size:1.15vmin;letter-spacing:.08em;color:rgba(255,255,255,.72)">NOT YET</div>
               </sc-if>
             </div>
           </div>
@@ -290,40 +312,40 @@ button, a { transition: transform .16s cubic-bezier(.22,.7,.3,1), box-shadow .16
   </sc-if>
 
   <sc-if value="{{ isSettings }}" hint-placeholder-val="{{ false }}">
-    <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:70vh;max-width:92%;max-height:86%;display:flex;flex-direction:column;border-radius:3vh;background:linear-gradient(160deg,rgba(50,78,116,.80) 0%,rgba(18,34,56,.88) 100%);backdrop-filter:blur(26px) saturate(1.5);-webkit-backdrop-filter:blur(26px) saturate(1.5);border:.32vh solid rgba(255,255,255,.34);box-shadow:0 2.6vh 5.4vh rgba(9,28,44,.55);overflow:hidden">
-      <div style="display:flex;align-items:center;gap:1.4vh;padding:1.6vh 1.6vh 0">
-        <div style="flex:1;display:flex;align-items:center;height:6.2vh;padding-left:1vh;font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:2.9vh;letter-spacing:.01em;color:#fff;text-shadow:0 .2vh .8vh rgba(9,28,44,.45)">SETTINGS</div>
-        <button onClick="{{ closePopup }}" style="flex:none;width:6.2vh;height:6.2vh;border-radius:50%;border:.3vh solid rgba(255,255,255,.5);background:linear-gradient(180deg,#FF9E96 0%,#F2564A 100%);box-shadow:inset 0 -.55vh 0 rgba(0,0,0,.16);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;padding:0;transition:transform .16s cubic-bezier(.22,.7,.3,1),filter .16s ease" style-hover="filter:brightness(1.08)" style-active="transform:translateY(2px)">
-          <svg width="2.6vh" height="2.6vh" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="3.2" stroke-linecap="round" d="M7 7l10 10M17 7L7 17"></path></svg>
+    <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:70vmin;max-width:92%;max-height:86%;display:flex;flex-direction:column;border-radius:3vmin;background:linear-gradient(160deg,rgba(50,78,116,.80) 0%,rgba(18,34,56,.88) 100%);backdrop-filter:blur(26px) saturate(1.5);-webkit-backdrop-filter:blur(26px) saturate(1.5);border:.32vmin solid rgba(255,255,255,.34);box-shadow:0 2.6vmin 5.4vmin rgba(9,28,44,.55);overflow:hidden">
+      <div style="display:flex;align-items:center;gap:1.4vmin;padding:1.6vmin 1.6vmin 0">
+        <div style="flex:1;display:flex;align-items:center;height:6.2vmin;padding-left:1vmin;font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:2.9vmin;letter-spacing:.01em;color:#fff;text-shadow:0 .2vmin .8vmin rgba(9,28,44,.45)">SETTINGS</div>
+        <button onClick="{{ closePopup }}" style="flex:none;width:6.2vmin;height:6.2vmin;border-radius:50%;border:.3vmin solid rgba(255,255,255,.5);background:linear-gradient(180deg,#FF9E96 0%,#F2564A 100%);box-shadow:inset 0 -.55vmin 0 rgba(0,0,0,.16);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;padding:0;transition:transform .16s cubic-bezier(.22,.7,.3,1),filter .16s ease" style-hover="filter:brightness(1.08)" style-active="transform:translateY(2px)">
+          <svg width="2.6vmin" height="2.6vmin" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="3.2" stroke-linecap="round" d="M7 7l10 10M17 7L7 17"></path></svg>
         </button>
       </div>
-      <div style="flex:1;overflow-y:auto;padding:2.2vh 2.6vh 2.8vh">
-        <div style="display:flex;flex-direction:column;gap:1.2vh">
-          <div style="display:flex;align-items:center;justify-content:space-between;padding:1.4vh 1.8vh;border-radius:1.6vh;background:rgba(255,255,255,.13);box-shadow:inset 0 0 0 .28vh rgba(20,73,107,.10),0 .35vh 0 rgba(20,73,107,.09)">
-            <div style="display:flex;flex-direction:column;gap:.2vh">
-              <div style="font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:1.8vh;color:#FFFFFF">The flute</div>
-              <div style="font-family:Nunito;font-weight:600;font-size:1.45vh;color:rgba(255,255,255,.80)">Connected inside the game</div>
+      <div style="flex:1;overflow-y:auto;padding:2.2vmin 2.6vmin 2.8vmin">
+        <div style="display:flex;flex-direction:column;gap:1.2vmin">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:1.4vmin 1.8vmin;border-radius:1.6vmin;background:rgba(255,255,255,.13);box-shadow:inset 0 0 0 .28vmin rgba(20,73,107,.10),0 .35vmin 0 rgba(20,73,107,.09)">
+            <div style="display:flex;flex-direction:column;gap:.2vmin">
+              <div style="font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:1.8vmin;color:#FFFFFF">The flute</div>
+              <div style="font-family:Nunito;font-weight:600;font-size:1.45vmin;color:rgba(255,255,255,.80)">Connected inside the game</div>
             </div>
-            <a href="Chamki Firefly Forest.dc.html" style="display:flex;align-items:center;height:4.6vh;padding:0 2vh;border:.35vh solid #fff;border-radius:1.3vh;background:linear-gradient(180deg,#C9AEF9 0%,#9E77E8 100%);box-shadow:inset 0 -.4vh 0 rgba(0,0,0,.16);cursor:pointer;color:#fff;font-family:Nunito;font-weight:900;font-size:1.3vh;letter-spacing:.1em;text-decoration:none;text-shadow:0 .2vh 0 rgba(0,0,0,.24);transition:transform .16s cubic-bezier(.22,.7,.3,1),filter .16s ease" style-hover="filter:brightness(1.06)" style-active="transform:translateY(2px)">OPEN</a>
+            <a href="Chamki Firefly Forest.dc.html" style="display:flex;align-items:center;height:4.6vmin;padding:0 2vmin;border:.35vmin solid #fff;border-radius:1.3vmin;background:linear-gradient(180deg,#C9AEF9 0%,#9E77E8 100%);box-shadow:inset 0 -.4vmin 0 rgba(0,0,0,.16);cursor:pointer;color:#fff;font-family:Nunito;font-weight:900;font-size:1.3vmin;letter-spacing:.1em;text-decoration:none;text-shadow:0 .2vmin 0 rgba(0,0,0,.24);transition:transform .16s cubic-bezier(.22,.7,.3,1),filter .16s ease" style-hover="filter:brightness(1.06)" style-active="transform:translateY(2px)">OPEN</a>
           </div>
 
           <sc-if value="{{ notConfirming }}" hint-placeholder-val="{{ true }}">
-            <div style="display:flex;align-items:center;justify-content:space-between;padding:1.4vh 1.8vh;border-radius:1.6vh;background:rgba(255,255,255,.13);box-shadow:inset 0 0 0 .28vh rgba(20,73,107,.10),0 .35vh 0 rgba(20,73,107,.09)">
-              <div style="display:flex;flex-direction:column;gap:.2vh;padding-right:1.4vh">
-                <div style="font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:1.8vh;color:#FFFFFF">A different child</div>
-                <div style="font-family:Nunito;font-weight:600;font-size:1.45vh;line-height:1.4;color:rgba(255,255,255,.80);text-wrap:pretty">Clears the stars and the saved breath, so the game measures the new player instead of the last one.</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:1.4vmin 1.8vmin;border-radius:1.6vmin;background:rgba(255,255,255,.13);box-shadow:inset 0 0 0 .28vmin rgba(20,73,107,.10),0 .35vmin 0 rgba(20,73,107,.09)">
+              <div style="display:flex;flex-direction:column;gap:.2vmin;padding-right:1.4vmin">
+                <div style="font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:1.8vmin;color:#FFFFFF">A different child</div>
+                <div style="font-family:Nunito;font-weight:600;font-size:1.45vmin;line-height:1.4;color:rgba(255,255,255,.80);text-wrap:pretty">Clears the stars and the saved breath, so the game measures the new player instead of the last one.</div>
               </div>
-              <button onClick="{{ askReset }}" style="flex:none;height:4.6vh;padding:0 2vh;border:.35vh solid #fff;border-radius:1.3vh;background:linear-gradient(180deg,#FF8ED0 0%,#E9349B 100%);box-shadow:inset 0 -.4vh 0 rgba(0,0,0,.16);cursor:pointer;color:#fff;font-family:Nunito;font-weight:900;font-size:1.3vh;letter-spacing:.1em;text-shadow:0 .2vh 0 rgba(0,0,0,.24);transition:transform .16s cubic-bezier(.22,.7,.3,1),filter .16s ease" style-hover="filter:brightness(1.06)" style-active="transform:translateY(2px)">START OVER</button>
+              <button onClick="{{ askReset }}" style="flex:none;height:4.6vmin;padding:0 2vmin;border:.35vmin solid #fff;border-radius:1.3vmin;background:linear-gradient(180deg,#FF8ED0 0%,#E9349B 100%);box-shadow:inset 0 -.4vmin 0 rgba(0,0,0,.16);cursor:pointer;color:#fff;font-family:Nunito;font-weight:900;font-size:1.3vmin;letter-spacing:.1em;text-shadow:0 .2vmin 0 rgba(0,0,0,.24);transition:transform .16s cubic-bezier(.22,.7,.3,1),filter .16s ease" style-hover="filter:brightness(1.06)" style-active="transform:translateY(2px)">START OVER</button>
             </div>
           </sc-if>
 
           <sc-if value="{{ confirming }}" hint-placeholder-val="{{ false }}">
-            <div style="padding:1.6vh 1.8vh;border-radius:1.6vh;background:rgba(255,255,255,.13);box-shadow:inset 0 0 0 .3vh #F2A9C4,0 .35vh 0 rgba(20,73,107,.09)">
-              <div style="font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:1.8vh;color:#FFFFFF;margin-bottom:.4vh">Clear everything?</div>
-              <div style="font-family:Nunito;font-weight:600;font-size:1.45vh;line-height:1.4;color:rgba(255,255,255,.80);margin-bottom:1.4vh;text-wrap:pretty">The stars and the saved breath go for good. The sound settings stay.</div>
-              <div style="display:flex;gap:1vh">
-                <button onClick="{{ cancelReset }}" style="flex:1;height:5vh;border:.35vh solid #fff;border-radius:1.3vh;background:rgba(255,255,255,.13);box-shadow:inset 0 0 0 .28vh rgba(20,73,107,.14);cursor:pointer;color:#FFFFFF;font-family:Nunito;font-weight:900;font-size:1.35vh;letter-spacing:.1em;transition:transform .16s cubic-bezier(.22,.7,.3,1),filter .16s ease" style-hover="filter:brightness(.97)" style-active="transform:translateY(2px)">KEEP IT</button>
-                <button onClick="{{ doReset }}" style="flex:1;height:5vh;border:.35vh solid #fff;border-radius:1.3vh;background:linear-gradient(180deg,#FF8ED0 0%,#E9349B 100%);box-shadow:inset 0 -.45vh 0 rgba(0,0,0,.16);cursor:pointer;color:#fff;font-family:Nunito;font-weight:900;font-size:1.35vh;letter-spacing:.1em;text-shadow:0 .2vh 0 rgba(0,0,0,.24);transition:transform .16s cubic-bezier(.22,.7,.3,1),filter .16s ease" style-hover="filter:brightness(1.06)" style-active="transform:translateY(2px)">YES, CLEAR</button>
+            <div style="padding:1.6vmin 1.8vmin;border-radius:1.6vmin;background:rgba(255,255,255,.13);box-shadow:inset 0 0 0 .3vmin #F2A9C4,0 .35vmin 0 rgba(20,73,107,.09)">
+              <div style="font-family:'Baloo 2',Nunito,sans-serif;font-weight:800;font-size:1.8vmin;color:#FFFFFF;margin-bottom:.4vmin">Clear everything?</div>
+              <div style="font-family:Nunito;font-weight:600;font-size:1.45vmin;line-height:1.4;color:rgba(255,255,255,.80);margin-bottom:1.4vmin;text-wrap:pretty">The stars and the saved breath go for good. The sound settings stay.</div>
+              <div style="display:flex;gap:1vmin">
+                <button onClick="{{ cancelReset }}" style="flex:1;height:5vmin;border:.35vmin solid #fff;border-radius:1.3vmin;background:rgba(255,255,255,.13);box-shadow:inset 0 0 0 .28vmin rgba(20,73,107,.14);cursor:pointer;color:#FFFFFF;font-family:Nunito;font-weight:900;font-size:1.35vmin;letter-spacing:.1em;transition:transform .16s cubic-bezier(.22,.7,.3,1),filter .16s ease" style-hover="filter:brightness(.97)" style-active="transform:translateY(2px)">KEEP IT</button>
+                <button onClick="{{ doReset }}" style="flex:1;height:5vmin;border:.35vmin solid #fff;border-radius:1.3vmin;background:linear-gradient(180deg,#FF8ED0 0%,#E9349B 100%);box-shadow:inset 0 -.45vmin 0 rgba(0,0,0,.16);cursor:pointer;color:#fff;font-family:Nunito;font-weight:900;font-size:1.35vmin;letter-spacing:.1em;text-shadow:0 .2vmin 0 rgba(0,0,0,.24);transition:transform .16s cubic-bezier(.22,.7,.3,1),filter .16s ease" style-hover="filter:brightness(1.06)" style-active="transform:translateY(2px)">YES, CLEAR</button>
               </div>
             </div>
           </sc-if>
