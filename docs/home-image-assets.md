@@ -4,7 +4,8 @@ Generated with the built-in image generation tool from `assets/breezyhome.png`.
 The original asset is retained. Generated artwork is visually similar, not pixel-identical.
 
 - `assets/breezyhome-background.png`: scenery with the embedded logo removed.
-- `assets/breezy-logo.png`: transparent purple logo silhouette, displayed white via CSS `brightness(0) invert(1)`. Purple extraction avoided artifacts from white foreground transparency processing.
+- `assets/breezy-logo-white.png`: pure-white PNG used by the home screen. Recolored the clean generated silhouette while preserving its alpha channel exactly; no CSS recoloring.
+- `assets/breezy-logo.png`: intermediate purple extraction, retained as the source silhouette.
 
 ## Final background prompt
 
